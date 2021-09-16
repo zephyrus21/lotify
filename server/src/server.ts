@@ -36,6 +36,29 @@ app.post("/login", (req: Request, res: Response) => {
     });
 });
 
+app.post("/refresh", (req: Request, res: Response) => {
+  const refreshToken = req.body.refreshToken;
+  const spotifyApi = new SpotifyWebApi({
+    redirectUri: "http://localhost:3000", //process.env.REDIRECT_URI
+    clientId: "439a39d07c944a31920a230ffe3b5eed", //process.env.CLIENT_ID
+    clientSecret: "b199f78b9fff46d8be5e57789ee0e64e", //process.env.CLIENT_SECRET,
+    refreshToken,
+  });
+
+  spotifyApi
+    .refreshAccessToken()
+    .then((data: any) => {
+      res.json({
+        accessToken: data.body.accessToken,
+        expiresIn: data.body.expiresIn,
+      });
+    })
+    .catch((err: Error) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
+});
+
 app.listen(4000, () => {
   console.log("Server listenong on port 4000");
 });
