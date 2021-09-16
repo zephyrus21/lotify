@@ -1,18 +1,13 @@
 import type { NextPage } from "next";
-import Head from "next/head";
+import { useRouter } from "next/router";
+import Dashboard from "../components/Dashboard";
+import Login from "../components/Login";
 
 const Home: NextPage = () => {
-  return (
-    <div>
-      <Head>
-        <title>Lotify</title>
-      </Head>
+  const router = useRouter();
+  const code = router.query.code;
 
-      <main>
-        <h1>Lotify</h1>
-      </main>
-    </div>
-  );
+  return code ? <Dashboard code={code} /> : <Login />;
 };
 
 export default Home;
