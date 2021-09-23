@@ -1,3 +1,3 @@
 # Lotify
 
-song streatimg app with Spotify API
+song streaming app with Spotify API
